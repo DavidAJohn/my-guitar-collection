@@ -1,0 +1,22 @@
+.content {
+    margin: auto;
+    width: 60%;
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    padding: 40px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+a {
+    color: black;
+}

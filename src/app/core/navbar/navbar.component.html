@@ -1,0 +1,14 @@
+<mat-toolbar color="primary" class="mat-elevation-z10">
+  <mat-icon class="icon">headset</mat-icon>&nbsp;<span>My Guitar Collection</span>
+  <span class="spacer"></span>
+  <button mat-button [matMenuTriggerFor]="beforeMenu">
+    <span class="greeting">Welcome, Dave</span>
+    <mat-icon class="icon">account_circle</mat-icon>
+  </button>
+  <mat-menu #beforeMenu="matMenu" xPosition="before">
+    <button mat-menu-item>View My Collection</button>
+    <button mat-menu-item>View Favourites</button>
+    <button mat-menu-item>View Messages</button>
+  </mat-menu>
+  <mat-icon class="icon">search</mat-icon>
+</mat-toolbar>

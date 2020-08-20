@@ -1,0 +1,27 @@
+<div class="content">
+    <div *ngIf="(breadcrumb$ | async) as breadcrumbs">
+        <section *ngIf="breadcrumbs.length > 0 && breadcrumbs[breadcrumbs.length-1].label !== 'Home'; else elseWelcome">
+            <div class="container">
+                <div class="item">
+                    <xng-breadcrumb>
+                        <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info; let first = first">
+                            <mat-icon *ngIf="info">home</mat-icon>
+                            <ng-container *ngIf="(!first)">{{ breadcrumb }}</ng-container>
+                        </ng-container>
+                    </xng-breadcrumb>
+                </div>
+            </div>
+        </section>
+        <ng-template #elseWelcome>
+            <div class="container">
+                <div class="item">
+                    <h2>Welcome to My Guitar Collection!</h2>
+                </div>
+                <div class="spacer"></div>
+                <div class="item">
+                    <h4>Show off your own guitar collection today - <a href="#">Login</a> / <a href="#">Register</a></h4>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
