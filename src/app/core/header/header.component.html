@@ -3,10 +3,14 @@
         <section *ngIf="breadcrumbs.length > 0 && breadcrumbs[breadcrumbs.length-1].label !== 'Home'; else elseWelcome">
             <div class="container">
                 <div class="item">
+                    <h2>{{ breadcrumbs[breadcrumbs.length-1].label | titlecase }}</h2>
+                </div>
+                <div class="spacer"></div>
+                <div class="item">
                     <xng-breadcrumb>
                         <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info; let first = first">
                             <mat-icon *ngIf="info">home</mat-icon>
-                            <ng-container *ngIf="(!first)">{{ breadcrumb }}</ng-container>
+                            <ng-container *ngIf="(!first)">{{ breadcrumb | titlecase }}</ng-container>
                         </ng-container>
                     </xng-breadcrumb>
                 </div>
@@ -19,7 +23,9 @@
                 </div>
                 <div class="spacer"></div>
                 <div class="item">
-                    <h4>Show off your own guitar collection today - <a href="#">Login</a> / <a href="#">Register</a></h4>
+                    <h4>Show off your own guitar collection today - 
+                        <a routerLink="/account/login">Login</a> / <a routerLink="/account/register">Register</a>
+                    </h4>
                 </div>
             </div>
         </ng-template>

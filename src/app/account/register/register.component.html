@@ -1,0 +1,80 @@
+<div class="container">
+    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+        <div>
+            <h1>Register</h1>
+        </div>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Your Name:</mat-label>
+            <input matInput [formControl]="rf.realName">
+            <mat-error *ngIf="rf.realName.hasError('required')">
+                Your name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="rf.realName.hasError('minlength')">
+                Your name <strong>must</strong> be at least 2 characters
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Email:</mat-label>
+            <input matInput [formControl]="rf.email" placeholder="Eg. you@email.com">
+            <mat-error *ngIf="rf.email.hasError('email') && !rf.email.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="rf.email.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Password:</mat-label>
+            <input matInput [formControl]="rf.password" [type]="hidePassword ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button" tabindex="-1">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="rf.password.hasError('required')">
+                Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="rf.password.hasError('minlength')">
+                Password <strong>must</strong> be 6 characters or more
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Confirm Password:</mat-label>
+            <input matInput [formControl]="rf.confirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button" tabindex="-1">
+                <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="rf.confirmPassword.hasError('required')">
+                Confirm Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="rf.confirmPassword.hasError('mustmatch')">
+                Passwords <strong>must</strong> match
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Your Biography:</mat-label>
+            <textarea matInput rows="4" cdkTextareaAutosize="false" [formControl]="rf.biography" ></textarea>
+            <mat-error *ngIf="rf.biography.hasError('maxlength')">
+                Your biography should be less than 150 characters
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Profile Image:</mat-label>
+            <input matInput [formControl]="rf.profileImagePath">
+        </mat-form-field>
+
+        <div class="buttons">
+            <button mat-raised-button color="primary" [disabled]="registerForm.invalid" type="submit">Register</button>
+        </div>
+
+        <div style="margin-top: 25px;">
+            Or, register with:
+        </div>
+        
+    </form>
+</div>

@@ -1,0 +1,27 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.login-form {
+    min-width: 150px;
+    max-width: 500px;
+    background-color: whitesmoke;
+    padding: 50px;
+    border-radius: 15px;
+}
+
+.element-full-width {
+    width: 100%;
+}
+
+.buttons {
+    margin-top: 25px;
+}
+
+a {
+    color: black;
+}
