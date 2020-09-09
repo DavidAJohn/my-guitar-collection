@@ -1,21 +1,48 @@
-import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { AccountService } from './../../account/account.service';
+import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Player } from 'src/app/shared/models/player';
+import { User } from 'firebase';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  currentFirebasePlayer$: Observable<firebase.User | null>;
+  currentLocalPlayer$: Observable<Player>;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  constructor(private accountService: AccountService) {}
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  ngOnInit(): void {
+    this.getFirebasePlayer();
+    this.getCurrentPlayer();
+  }
 
+  getFirebasePlayer() {
+    this.currentFirebasePlayer$ = this.accountService.playerData$;
+  }
+
+  getCurrentPlayer() {
+    // console.log(this.currentFirebasePlayer$);
+    this.accountService.getPlayer().pipe(
+      switchMap((player: User) => {
+        return this.accountService.getPlayerDetailsFromFirestore(player.uid);
+      })
+    ).subscribe(data => {
+      data.docs.map(p => {
+        // console.log(JSON.stringify(p.data()));
+        if (p.exists) {
+          const tempPlayer: string = JSON.stringify(p.data());
+          this.currentLocalPlayer$ = of(JSON.parse(tempPlayer));
+        }
+      });
+    });
+  }
+
+  logout() {
+    this.accountService.logOut();
+  }
 }

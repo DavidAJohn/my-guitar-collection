@@ -1,5 +1,10 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AccountService } from '../account.service';
+import { User } from 'firebase';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +14,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hidePassword: boolean;
+  loggedInUser$: Observable<User>;
 
-  constructor() { }
+  constructor(private accountService: AccountService,
+              private router: Router) {
+    this.loggedInUser$ = this.accountService.playerData$;
+  }
 
   ngOnInit(): void {
     this.createLoginForm();
@@ -29,6 +38,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    const formValues = this.loginForm.value;
+    const { email, password } = formValues; // destructure the form object values
+
+    this.logInWithEmailAndPassword(email, password);
   }
+
+  logInWithEmailAndPassword(email: string, password: string) {
+    this.accountService.logInWithEmailAndPassword(email, password);
+  }
+
+  // logInWithGoogle() {
+  //   this.accountService.logInWithGoogle();
+  // }
 }

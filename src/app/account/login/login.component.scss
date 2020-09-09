@@ -25,3 +25,13 @@
 a {
     color: black;
 }
+
+.signInButton {
+    width: 200px;
+    margin-left: -3px;
+    margin-top: 5px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

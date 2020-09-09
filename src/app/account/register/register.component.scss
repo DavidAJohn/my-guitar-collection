@@ -26,3 +26,18 @@
 a {
     color: black;
 }
+
+mat-progress-spinner {
+    display: inline-block;
+    margin: 10px 0px -9px 20px;
+}
+
+.signUpButton {
+    width: 200px;
+    margin-left: -3px;
+    margin-top: 5px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

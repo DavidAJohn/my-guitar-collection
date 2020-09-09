@@ -1,21 +1,23 @@
-import { MusicItem } from './baseItem';
-import { v4 as uuidv4 } from 'uuid';
+import { Guitar } from './guitar';
+import { Amplifier } from './amplifier';
 
 export class Player {
-    id: string;
-    itemsOwned: MusicItem[];
+    uid: string;
+    guitarsOwned: Guitar[];
+    ampsOwned: Amplifier[];
 
-    constructor(public email: string,
+    constructor(
+                public email: string,
                 public password: string,
-                public realName: string,
+                public displayName: string,
                 public biography: string,
                 public profileImagePath: string
                 ) {
-        this.id = uuidv4();
-        this.itemsOwned = [];
+        this.guitarsOwned = [];
+        this.ampsOwned = [];
     }
 }
 
 // const player1 = new Player('player@play.com', 'password', 'Player1', 'Player biog', '/assets/image.jpg');
-// const guitar1 = new Guitar('Fender', 'Jaguar', '1975 model', '1975', 'assets/guitar1.jpg', '123123', ItemStatus.Public);
-// player1.itemsOwned.push(guitar1);
+// const guitar1 = new Guitar('Fender', 'Jaguar', '1975 model', player.id, ItemStatus.Public, '1975', 'assets/guitar1.jpg');
+// player1.guitarsOwned.push(guitar1);

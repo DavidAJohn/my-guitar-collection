@@ -1,9 +1,9 @@
 import { BaseItem, ItemStatus } from './baseItem';
 
-export class Guitar extends BaseItem {
+export class Amplifier extends BaseItem {
     yearMade: string;
     imagePath: string;
-    numStrings: number;
+    ampType: AmplifierType;
 
     constructor(
                 manufacturer: string,
@@ -13,13 +13,21 @@ export class Guitar extends BaseItem {
                 itemStatus: ItemStatus,
                 yearMade: string,
                 imagePath: string,
-                numStrings: number
+                ampType: AmplifierType
                 ) {
         super(manufacturer, modelName, description, ownerId, itemStatus);
         this.yearMade = yearMade;
         this.imagePath = imagePath;
-        this.numStrings = numStrings;
+        this.ampType = ampType;
     }
 }
 
-// const guitar = new Guitar('Fender', 'Jaguar', '1975 model', '123123', ItemStatus.Public, '1975', 'assets/guitar1.jpg', 6);
+export enum AmplifierType {
+    Valve = 1,
+    SolidState
+}
+
+// const newAmp = new Amplifier('Blackstar', 'HT Club 40 Mk 2', 'Mk 2 model from 2018', player.id, ItemStatus.Public,
+//                              '2018', '/assets/image1.jpg', AmplifierType.Valve);
+// const newAmpName = newAmp.getItemFullName();
+// const newAmpModelName = newAmp.modelName;

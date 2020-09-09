@@ -12,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CollectionComponent } from './collection/collection.component';
 
@@ -27,6 +28,7 @@ import { CollectionComponent } from './collection/collection.component';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule

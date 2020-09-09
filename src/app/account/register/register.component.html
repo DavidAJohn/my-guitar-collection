@@ -7,11 +7,11 @@
 
         <mat-form-field appearance="standard" class="element-full-width">
             <mat-label>Your Name:</mat-label>
-            <input matInput [formControl]="rf.realName">
-            <mat-error *ngIf="rf.realName.hasError('required')">
+            <input matInput [formControl]="rf.displayName">
+            <mat-error *ngIf="rf.displayName.hasError('required')">
                 Your name is <strong>required</strong>
             </mat-error>
-            <mat-error *ngIf="rf.realName.hasError('minlength')">
+            <mat-error *ngIf="rf.displayName.hasError('minlength')">
                 Your name <strong>must</strong> be at least 2 characters
             </mat-error>
         </mat-form-field>
@@ -36,8 +36,8 @@
             <mat-error *ngIf="rf.password.hasError('required')">
                 Password is <strong>required</strong>
             </mat-error>
-            <mat-error *ngIf="rf.password.hasError('minlength')">
-                Password <strong>must</strong> be 6 characters or more
+            <mat-error *ngIf="rf.password.hasError('pattern')">
+                Password <strong>must</strong> be 8 characters or more, with at least 1 uppercase letter and 1 number
             </mat-error>
         </mat-form-field>
 
@@ -69,12 +69,23 @@
         </mat-form-field>
 
         <div class="buttons">
-            <button mat-raised-button color="primary" [disabled]="registerForm.invalid" type="submit">Register</button>
+            <button mat-raised-button color="primary" [disabled]="registerForm.invalid || isSubmitting" type="submit" >Register</button>
+            <span [hidden]="!isSubmitting">
+                <mat-progress-spinner 
+                    mode="indeterminate" 
+                    diameter='25' 
+                    color="primary" 
+                    strokeWidth='5'>
+                </mat-progress-spinner>
+            </span>
         </div>
 
-        <div style="margin-top: 25px;">
-            Or, register with:
+        <!-- <div style="margin-top: 25px;">
+            Or:
         </div>
+        <div (click)="registerWithGoogle()" class="signUpButton">
+            <img src="../../../assets/images/google_signup_button.png" class="signUpButton">
+        </div> -->
         
     </form>
 </div>

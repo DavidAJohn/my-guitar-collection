@@ -1,12 +1,34 @@
 <mat-toolbar color="primary" class="mat-elevation-z10">
   <mat-icon class="icon">headset</mat-icon>&nbsp;<span>My Guitar Collection</span>
   <span class="spacer"></span>
-  <button mat-button [matMenuTriggerFor]="beforeMenu">
-    <span class="greeting">Welcome, Dave</span>
-    <mat-icon class="icon">account_circle</mat-icon>
-  </button>
-  <mat-menu #beforeMenu="matMenu" xPosition="before">
-    <button mat-menu-item routerLink="/account/collection">View My Collection</button>
-  </mat-menu>
+  
+  <div *ngIf="(currentFirebasePlayer$ | async) as authPlayer; else noLoggedInUser">
+    <button mat-button [matMenuTriggerFor]="beforeMenu">
+      <span *ngIf="authPlayer.displayName !== null" 
+            class="greeting">
+            Welcome, {{authPlayer.displayName}}
+      </span>
+      <span *ngIf="(currentLocalPlayer$ | async) as localPlayer"
+            class="greeting">Welcome, {{localPlayer.displayName}}
+      </span>
+      <span *ngIf="authPlayer.email !== null && !currentLocalPlayer$" 
+            class="greeting">Welcome, {{authPlayer.email}}
+      </span>
+      <mat-icon class="icon">account_circle</mat-icon>
+    </button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+      <button mat-menu-item routerLink="/account/collection">View My Collection</button>
+      <button mat-menu-item routerLink="/account/collection">View My Likes</button>
+      <hr />
+      <button mat-menu-item (click)="logout()">
+        <mat-icon class="icon">logout</mat-icon>
+        Log Out
+      </button>
+    </mat-menu>
+  </div>
+  <ng-template #noLoggedInUser>
+    <a routerLink="/account/login">Login</a> / <a routerLink="/account/register">Register</a>
+  </ng-template>
+  
   <mat-icon class="icon">search</mat-icon>
 </mat-toolbar>
