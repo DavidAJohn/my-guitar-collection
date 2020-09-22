@@ -1,1 +1,23 @@
-<p>collection works!</p>
+<div class="container">
+  <h3>Your current guitar collection:</h3>
+</div>
+<div class="container">
+  <app-guitar-card
+    [cardActionType]="cardActionType.None"
+  >
+  </app-guitar-card>
+
+  <mat-card class="card mat-elevation-z5">
+    <mat-card-header>
+      <div mat-card-avatar class="header-image" style="background-image: url('https://randomuser.me/api/portraits/thumb/men/9.jpg')"></div>
+      <mat-card-title>Add a new guitar</mat-card-title>
+      <mat-card-subtitle>Donny Barr</mat-card-subtitle>
+    </mat-card-header>
+    <a href="#"><mat-icon mat-card-image>add_circle_outline</mat-icon></a>
+    <mat-card-content>
+      <p>
+        This will be the description of your new guitar
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

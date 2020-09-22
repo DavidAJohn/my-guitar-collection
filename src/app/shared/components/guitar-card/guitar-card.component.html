@@ -1,0 +1,31 @@
+<mat-card class="card mat-elevation-z5">
+    <mat-card-header>
+    <div mat-card-avatar class="header-image" style="background-image: url('https://randomuser.me/api/portraits/thumb/men/9.jpg')"></div>
+    <mat-card-title>Fender Jaguar</mat-card-title>
+    <mat-card-subtitle>Donny Barr</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="../assets/images/fender-jaguar-donny-barr-guitar.png" alt="Photo of a Fender Jaguar">
+    <mat-card-content>
+    <p>
+        This is Donny's signature model created in collaboration with Fender and released in 2017.
+        The pickups are deliberately wired out of phase for that distinctive Donny Barr sound.
+    </p>
+    </mat-card-content>
+    <mat-card-actions *ngIf="cardActionType !== cardActionTypesEnum.None">
+        <ng-container *ngIf="cardActionType === cardActionTypesEnum.Share">
+            <div class="card-actions">
+                <button mat-mini-fab color="primary">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+                <button mat-mini-fab color="warn">
+                    <mat-icon>share</mat-icon>
+                </button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="cardActionType === cardActionTypesEnum.Edit">
+            <div class="card-actions">
+                <button mat-raised-button color="warn">Edit</button>
+            </div>
+        </ng-container>
+    </mat-card-actions>
+</mat-card>

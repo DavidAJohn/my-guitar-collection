@@ -116,7 +116,7 @@ export class AccountService {
           email,
           biography,
           profileImagePath: this.generateRandomProfileImage(),
-          dateCreated: firebase.firestore.Timestamp.fromDate(new Date()),
+          // dateCreated: firebase.firestore.Timestamp.fromDate(new Date()),
           guitarsOwned: [],
           ampsOwned: []
         };
