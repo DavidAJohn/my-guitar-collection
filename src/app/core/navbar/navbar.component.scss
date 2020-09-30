@@ -23,3 +23,14 @@ a {
   color: white;
   font-size: 0.9rem;
 }
+
+button {
+  &.profilePic {
+    vertical-align:middle;
+    margin: 0 10px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+}

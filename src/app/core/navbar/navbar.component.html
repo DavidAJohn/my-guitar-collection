@@ -14,7 +14,12 @@
       <span *ngIf="authPlayer.email !== null && !currentLocalPlayer$" 
             class="greeting">Welcome, {{authPlayer.email}}
       </span>
-      <mat-icon class="icon">account_circle</mat-icon>
+      <span *ngIf="(currentLocalPlayer$ | async) as localPlayer">
+        <button mat-icon-button 
+          class="profilePic" 
+          [style.backgroundImage]="'url('+ localPlayer.profileImagePath +')'">
+        </button>
+      </span>
     </button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
       <button mat-menu-item routerLink="/account/collection">View My Collection</button>
