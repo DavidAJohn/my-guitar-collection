@@ -3,7 +3,7 @@
 </div>
 <div class="container">
   <app-guitar-card
-    [cardActionType]="cardActionType.None"
+    [cardActionType]="cardActionType.Edit"
   >
   </app-guitar-card>
 
@@ -13,11 +13,22 @@
       <mat-card-title>Add a new guitar</mat-card-title>
       <mat-card-subtitle>Donny Barr</mat-card-subtitle>
     </mat-card-header>
-    <a href="#"><mat-icon mat-card-image>add_circle_outline</mat-icon></a>
+
+    <img mat-card-image 
+      class="new-guitar" 
+      src="../assets/images/default_guitar.jpg" 
+      alt="Photo of a guitar"
+      routerLink="/account/add-new-guitar"  
+    >
+    
     <mat-card-content>
-      <p>
-        This will be the description of your new guitar
-      </p>
     </mat-card-content>
+
+    <mat-card-actions>
+      <div class="card-actions">
+        <button mat-raised-button color="accent" routerLink="/account/add-new-guitar">Add</button>
+      </div>
+    </mat-card-actions>
+
   </mat-card>
 </div>
