@@ -1,0 +1,81 @@
+<div class="content">
+    <h3>Add a new guitar here:</h3>
+</div>
+<div class="container">
+    <form class="add-new-form" [formGroup]="addNewForm" (ngSubmit)="onSubmit()">
+        
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Manufacturer:</mat-label>
+            <input matInput [formControl]="anf.manufacturer">
+            <mat-error *ngIf="anf.manufacturer.hasError('required')">
+                The instrument manufacturer is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Model Name:</mat-label>
+            <input matInput [formControl]="anf.modelName">
+            <mat-error *ngIf="anf.modelName.hasError('required')">
+                The model name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Description:</mat-label>
+            <textarea matInput rows="4" cdkTextareaAutosize="false" [formControl]="anf.description" ></textarea>
+            <mat-error *ngIf="anf.description.hasError('maxlength')">
+                Please keep your description to <strong>less than</strong> 250 characters
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Year Made:</mat-label>
+            <input matInput [formControl]="anf.yearMade">
+            <mat-error *ngIf="anf.yearMade.hasError('min')">
+                Was the instrument really made <strong>before</strong> 1900?
+            </mat-error>
+            <mat-error *ngIf="anf.yearMade.hasError('max')">
+                Was the instrument really made <strong>after</strong> 2050?
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Profile Image:</mat-label>
+            <input matInput [formControl]="anf.imagePath">
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="element-full-width">
+            <mat-label>Number of strings:</mat-label>
+            <input matInput [formControl]="anf.numStrings">
+            <mat-error *ngIf="anf.numStrings.hasError('min')">
+                The instrument <strong>must</strong> have some strings
+            </mat-error>
+            <mat-error *ngIf="anf.yearMade.hasError('max')">
+                Guitars don't normally have more than <strong>8</strong> strings
+            </mat-error>
+        </mat-form-field>
+
+        <div class="itemStatusGroup">
+            <mat-radio-group [formControl]="anf.itemStatus" aria-label="Private/Public">
+                <mat-radio-button value="1">Public</mat-radio-button>
+                <mat-radio-button value="0">Private (will only be visible to you - can be changed later)</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        
+        <div class="buttons">
+            <button mat-raised-button color="primary" 
+                    [disabled]="addNewForm.invalid || isSubmitting" 
+                    type="submit">Add Guitar
+            </button>
+            <span [hidden]="!isSubmitting">
+                <mat-progress-spinner 
+                    mode="indeterminate" 
+                    diameter='25' 
+                    color="primary" 
+                    strokeWidth='5'>
+                </mat-progress-spinner>
+            </span>
+        </div>
+
+    </form>
+</div>
