@@ -29,7 +29,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="standard" class="element-full-width">
-            <mat-label>Year Made:</mat-label>
+            <mat-label>Year of Manufacture:</mat-label>
             <input matInput [formControl]="anf.yearMade">
             <mat-error *ngIf="anf.yearMade.hasError('min')">
                 Was the instrument really made <strong>before</strong> 1900?
@@ -40,26 +40,38 @@
         </mat-form-field>
 
         <mat-form-field appearance="standard" class="element-full-width">
-            <mat-label>Profile Image:</mat-label>
-            <input matInput [formControl]="anf.imagePath">
-        </mat-form-field>
-
-        <mat-form-field appearance="standard" class="element-full-width">
             <mat-label>Number of strings:</mat-label>
             <input matInput [formControl]="anf.numStrings">
             <mat-error *ngIf="anf.numStrings.hasError('min')">
-                The instrument <strong>must</strong> have some strings
+                Really? Even Seasick Steve's instruments have at least 1 string!
             </mat-error>
-            <mat-error *ngIf="anf.yearMade.hasError('max')">
-                Guitars don't normally have more than <strong>8</strong> strings
+            <mat-error *ngIf="anf.numStrings.hasError('max')">
+                Maximum of <strong>8</strong> strings. No harps allowed!
             </mat-error>
         </mat-form-field>
 
-        <div class="itemStatusGroup">
-            <mat-radio-group [formControl]="anf.itemStatus" aria-label="Private/Public">
-                <mat-radio-button value="1">Public</mat-radio-button>
-                <mat-radio-button value="0">Private (will only be visible to you - can be changed later)</mat-radio-button>
-            </mat-radio-group>
+        <div class="image-button">
+            <button mat-stroked-button type="button" (click)="filePicker.click()">Choose an image</button>
+            <span class="image-upload-required-warning" *ngIf="!imagePreview">
+                * An image of the instrument is required
+            </span>
+            <input type="file" #filePicker (change)="onImageSelected($event)">
+            <div class="image-file-type-error" *ngIf="anf.imagePath.invalid && imagePreview !== '' && fileUploadTouched == true">
+                Only .png and .jpg files can be uploaded
+            </div>
+        </div>
+        <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && anf.imagePath.valid">
+            <img [src]="sanitizer.bypassSecurityTrustUrl(imagePreview)" [alt]="anf.title">
+        </div>
+
+        <div class="item-status-group">
+            <mat-label>Should this instrument be publicly visible?:</mat-label>
+            <div class="item-status-buttons">
+                <mat-radio-group [formControl]="anf.itemStatus" aria-label="Private/Public">
+                    <mat-radio-button value="1">Public</mat-radio-button>
+                    <mat-radio-button value="0">Private (will only be visible to you - can be changed later)</mat-radio-button>
+                </mat-radio-group>
+            </div>
         </div>
         
         <div class="buttons">

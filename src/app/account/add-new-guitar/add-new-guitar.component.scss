@@ -34,10 +34,46 @@ mat-progress-spinner {
     margin: 10px 0px -9px 20px;
 }
 
+mat-label {
+    font-weight: bold;
+}
+
 .mat-radio-button ~ .mat-radio-button {
     margin-left: 16px;
 }
 
-.itemStatusGroup {
-    margin: 15px 0;
+.item-status-group {
+    margin: 2.5rem 0 1rem 0;
+}
+
+.item-status-buttons {
+    margin-top: 0.5rem;
+}
+
+input[type="file"] {
+    visibility: hidden;
+}
+
+.image-button {
+    margin: 1.25rem 0 2rem 0;
+}
+
+.image-preview {
+    height: 10rem;
+    margin: 1.25rem 0;
+
+    img {
+        height: 100%;
+    }
+}
+
+.image-file-type-error {
+    display: block;
+    color: red;
+    margin: 1rem 0;
+}
+
+.image-upload-required-warning {
+    margin-left: 1rem;
+    color: red;
 }
