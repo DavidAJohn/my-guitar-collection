@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mimeType as mimeTypeValidator } from '../../shared/helpers/mime-type.validator';
+import { fileSize as fileSizeValidator } from '../../shared/helpers/file-size.validator';
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-new-guitar',
@@ -13,10 +15,13 @@ export class AddNewGuitarComponent implements OnInit {
   imagePreview: string;
   isSubmitting = false;
   fileUploadTouched = false;
+  maxFileUploadSize: string;
 
   constructor(private formBuilder: FormBuilder, public sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    const fileSizeLimit = environment.maxFileUploadSize || 5000000;
+    this.maxFileUploadSize = this.formatBytes(fileSizeLimit, 0);
     this.createAddNewForm();
   }
 
@@ -30,7 +35,7 @@ export class AddNewGuitarComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(250)]],
       itemStatus: ['1', [Validators.required]],
       yearMade: ['', [Validators.max(2050), Validators.min(1900)]],
-      imagePath: ['', [Validators.required], [ mimeTypeValidator ]],
+      imagePath: ['', [Validators.required], [ mimeTypeValidator, fileSizeValidator ]],
       numStrings: ['', [Validators.max(8), Validators.min(1)]]
     });
   }
@@ -61,6 +66,18 @@ export class AddNewGuitarComponent implements OnInit {
 
       reader.readAsDataURL(file);
     }
+  }
+
+  private formatBytes(bytes: number, decimals = 0): string {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
 }

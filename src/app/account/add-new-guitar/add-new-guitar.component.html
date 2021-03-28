@@ -57,7 +57,7 @@
             </span>
             <input type="file" #filePicker (change)="onImageSelected($event)">
             <div class="image-file-type-error" *ngIf="anf.imagePath.invalid && imagePreview !== '' && fileUploadTouched == true">
-                Only .png and .jpg files can be uploaded
+                Only .png and .jpg files can be uploaded (max size: {{maxFileUploadSize}})
             </div>
         </div>
         <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && anf.imagePath.valid">

@@ -14,7 +14,8 @@ export const environment = {
     appId: '1:576131668835:web:ade8be8e75d626d1ea5156',
     measurementId: 'G-JKVZKK9T9L'
   },
-  playerCollectionName: 'players'
+  playerCollectionName: 'players',
+  maxFileUploadSize: 5000000 // 1000000 = 1Mb
 };
 
 /*
