@@ -1,8 +1,8 @@
 .card {
-    max-width: 300px;
+    max-width: 225px;
     min-width: 150px;
-    height: 500px;
-    margin-bottom: 40px;
+    height: 400px;
+    margin-bottom: 30px;
 }
 
 .header-image {
@@ -13,14 +13,25 @@
     position: relative;
 }
 
-.mat-card-content {
-    height: 100px;
+.mat-card-title {
+    max-height: 30px;
     overflow: hidden;
+    font-size: 1rem;
+}
+
+.mat-card-content {
+    height: 75px;
+    max-height: 75px;
+    overflow: hidden;
+
+    p {
+        font-size: 0.8rem;
+    }
 }
 
 .mat-card-image {
-    height: 250px;
-    max-height: 250px;
+    height: 180px;
+    max-height: 180px;
     overflow: hidden;
 }
 
