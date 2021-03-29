@@ -85,60 +85,37 @@ export class AccountService {
     });
   }
 
-  registerWithEmailAndPassword(email: string, password: string) {
+  registerWithEmailAndPassword(email: string, password: string, displayName: string, biography: string)  {
     this.fireAuth.createUserWithEmailAndPassword(email, password)
-      .then(res => {
-        console.log('Created login in firestore db', res);
-        this.snackBar.open('Registration successful', '', { duration: 3000 });
-        this.router.navigateByUrl('/account/collection');
-        console.log('Logged in as: ' + res.user.email);
+      .then(() => {
+
+        firebase.firestore()
+          .collection(this.playerCollectionName)
+          .doc(firebase.auth().currentUser.uid)
+          .set({
+            uid: firebase.auth().currentUser.uid,
+            displayName,
+            email,
+            biography,
+            profileImagePath: this.generateRandomProfileImage(),
+            dateCreated: firebase.firestore.Timestamp.fromDate(new Date()),
+            guitarsOwned: [],
+            ampsOwned: []
+          })
+          .catch(error => {
+            console.log('Something went wrong with adding user to firestore: ', error);
+          })
+
+          this.snackBar.open('Registration successful', '', { duration: 3000 });
+          this.router.navigateByUrl('/account/collection');
       })
-      .catch(error => {
-        console.log('Could not create user in firestore db: ', error.message);
-        this.snackBar.open('Could not create user account', '', { duration: 3000 });
+      .catch((error) => {
+        console.log('Could not create user in firebase: ', error.message);
       });
   }
 
   registerWithGoogle() {
     throw new Error('Method not implemented.');
-  }
-
-  async createNewPlayer(email: string, password: string, displayName: string, biography: string) {
-    await this.fireAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((res) => {
-        const id = res.user.uid;
-        console.log('Created user in firebase auth with id: ' + id);
-
-        const docData = {
-          uid: id,
-          displayName,
-          email,
-          biography,
-          profileImagePath: this.generateRandomProfileImage(),
-          // dateCreated: firebase.firestore.Timestamp.fromDate(new Date()),
-          guitarsOwned: [],
-          ampsOwned: []
-        };
-        console.log(docData);
-
-        return new Promise<any>((resolve, reject) => {
-          this.fireStore
-            .collection('players')
-            .add(docData)
-            .then(result => {
-              resolve(res);
-              console.log('Created login in firestore db', result);
-              this.snackBar.open('Registration successful', '', { duration: 3000 });
-              this.router.navigateByUrl('/account/collection');
-              },
-              err => reject(err)
-            );
-        });
-      })
-      .catch((error) => {
-        console.log('Could not create user in firebase: ', error.message);
-      });
   }
 
   private generateRandomProfileImage() {

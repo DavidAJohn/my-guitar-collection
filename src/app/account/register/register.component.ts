@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
       const formValues = this.registerForm.value;
       const { email, password, displayName, biography } = formValues; // destructure the form input values
 
-      this.accountService.createNewPlayer(email, password, displayName, biography);
+      this.accountService.registerWithEmailAndPassword(email, password, displayName, biography);
     }
   }
 
