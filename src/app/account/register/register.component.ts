@@ -32,7 +32,8 @@ export class RegisterComponent implements OnInit {
                 // Password with the following requirements:
                 // At least 8 characters long
                 // At least 1 uppercase letter, at least 1 lowercase and at least 1 number
-                Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$')]),
+                // At least 1 special character which includes !@#$%&*()-+=^
+                Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8,}$')]),
       confirmPassword: new FormControl('', [Validators.required]),
       displayName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       biography: new FormControl('', [Validators.maxLength(150)]),

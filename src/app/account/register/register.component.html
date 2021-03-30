@@ -37,7 +37,8 @@
                 Password is <strong>required</strong>
             </mat-error>
             <mat-error *ngIf="rf.password.hasError('pattern')">
-                Password <strong>must</strong> be 8 characters or more, with at least 1 uppercase letter and 1 number
+                Password <strong>must</strong> be 8 characters or more, 
+                with at least 1 uppercase letter, 1 number and 1 special character (!@#$%&*()-+=^)
             </mat-error>
         </mat-form-field>
 
@@ -56,10 +57,10 @@
         </mat-form-field>
 
         <mat-form-field appearance="standard" class="element-full-width">
-            <mat-label>Your Biography:</mat-label>
+            <mat-label>Brief details about you:</mat-label>
             <textarea matInput rows="4" cdkTextareaAutosize="false" [formControl]="rf.biography" ></textarea>
             <mat-error *ngIf="rf.biography.hasError('maxlength')">
-                Your biography should be less than 150 characters
+                Your details should be less than 150 characters
             </mat-error>
         </mat-form-field>
 
