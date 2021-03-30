@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Player } from 'src/app/shared/models/player';
 import { User } from 'firebase';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -14,30 +15,36 @@ export class NavbarComponent implements OnInit {
   currentFirebasePlayer$: Observable<firebase.User | null>;
   currentLocalPlayer$: Observable<Player>;
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService, private fireAuth: AngularFireAuth) {}
 
   ngOnInit(): void {
-    this.getFirebasePlayer();
-    this.getCurrentPlayer();
+    this.fireAuth.onAuthStateChanged(user => {
+      if (user !== null) {
+        this.getFirebasePlayer();
+      }
+    })
   }
 
   getFirebasePlayer() {
     this.currentFirebasePlayer$ = this.accountService.playerData$;
+    this.getCurrentPlayer();
   }
 
   getCurrentPlayer() {
-    this.accountService.getPlayer().pipe(
-      switchMap((player: User) => {
-        return this.accountService.getPlayerDetailsFromFirestore(player.uid);
-      })
-    ).subscribe(data => {
-      data.docs.map(p => {
-        if (p.exists) {
-          const tempPlayer: string = JSON.stringify(p.data());
-          this.currentLocalPlayer$ = of(JSON.parse(tempPlayer));
-        }
+    if (this.currentFirebasePlayer$ !== null) {
+      this.accountService.getPlayer().pipe(
+        switchMap((player: User) => {
+          return this.accountService.getPlayerDetailsFromFirestore(player.uid);
+        })
+      ).subscribe(data => {
+        data.docs.map(p => {
+          if (p.exists) {
+            const tempPlayer: string = JSON.stringify(p.data());
+            this.currentLocalPlayer$ = of(JSON.parse(tempPlayer));
+          }
+        });
       });
-    });
+    }
   }
 
   logout() {

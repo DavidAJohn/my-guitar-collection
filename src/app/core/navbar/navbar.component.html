@@ -2,26 +2,29 @@
   <mat-icon class="icon">headset</mat-icon>&nbsp;<span>My Guitar Collection</span>
   <span class="spacer"></span>
   
-  <div *ngIf="(currentFirebasePlayer$ | async) as authPlayer; else noLoggedInUser">
+  <div *ngIf="currentFirebasePlayer$ | async; else noLoggedInUser">
     <button mat-button [matMenuTriggerFor]="beforeMenu">
-      <span *ngIf="authPlayer.displayName !== null" 
-            class="greeting">
-            Welcome, {{authPlayer.displayName}}
-      </span>
-      <span *ngIf="authPlayer.displayName == null" 
-            class="greeting">
-            Welcome, {{authPlayer.email}}
-      </span>
-      <span *ngIf="(currentLocalPlayer$ | async) as localPlayer">
-        <button mat-icon-button 
-          class="profilePic" 
-          [style.backgroundImage]="'url('+ localPlayer.profileImagePath +')'">
-        </button>
-      </span>
+      <div *ngIf="(currentLocalPlayer$ | async) as localPlayer">
+        <span class="greeting">
+            Welcome, {{localPlayer.displayName || localPlayer.email}}
+        </span>
+        <span>
+          <button mat-icon-button 
+            class="profilePic" 
+            [style.backgroundImage]="'url('+ localPlayer.profileImagePath +')'">
+          </button>
+        </span>
+      </div>
     </button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <button mat-menu-item routerLink="/account/collection">View My Collection</button>
-      <button mat-menu-item routerLink="/account/collection">View My Likes</button>
+      <button mat-menu-item routerLink="/account/collection">
+        <mat-icon class="icon">collections</mat-icon>
+        View My Collection
+      </button>
+      <button mat-menu-item routerLink="/account/collection">
+        <mat-icon class="icon">favorite</mat-icon>
+        View My Likes
+      </button>
       <hr />
       <button mat-menu-item (click)="logout()">
         <mat-icon class="icon">logout</mat-icon>
