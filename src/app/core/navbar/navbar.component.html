@@ -8,11 +8,9 @@
             class="greeting">
             Welcome, {{authPlayer.displayName}}
       </span>
-      <span *ngIf="(currentLocalPlayer$ | async) as localPlayer"
-            class="greeting">Welcome, {{localPlayer.displayName}}
-      </span>
-      <span *ngIf="authPlayer.email !== null && !currentLocalPlayer$" 
-            class="greeting">Welcome, {{authPlayer.email}}
+      <span *ngIf="authPlayer.displayName == null" 
+            class="greeting">
+            Welcome, {{authPlayer.email}}
       </span>
       <span *ngIf="(currentLocalPlayer$ | async) as localPlayer">
         <button mat-icon-button 
@@ -32,7 +30,7 @@
     </mat-menu>
   </div>
   <ng-template #noLoggedInUser>
-    <a routerLink="/account/login">Login</a> / <a routerLink="/account/register">Register</a>
+    <a routerLink="/account/login">Login</a>&nbsp; | &nbsp;<a routerLink="/account/register">Register</a>
   </ng-template>
   
   <mat-icon class="icon">search</mat-icon>

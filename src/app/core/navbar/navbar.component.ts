@@ -26,14 +26,12 @@ export class NavbarComponent implements OnInit {
   }
 
   getCurrentPlayer() {
-    // console.log(this.currentFirebasePlayer$);
     this.accountService.getPlayer().pipe(
       switchMap((player: User) => {
         return this.accountService.getPlayerDetailsFromFirestore(player.uid);
       })
     ).subscribe(data => {
       data.docs.map(p => {
-        // console.log(JSON.stringify(p.data()));
         if (p.exists) {
           const tempPlayer: string = JSON.stringify(p.data());
           this.currentLocalPlayer$ = of(JSON.parse(tempPlayer));
