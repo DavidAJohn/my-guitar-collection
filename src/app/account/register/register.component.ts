@@ -2,7 +2,6 @@ import { AccountService } from './../account.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
-// import custom validator to check that password and confirm password fields match
 import { MustMatch } from '../../shared/helpers/must-match.validator';
 
 @Component({
@@ -51,14 +50,14 @@ export class RegisterComponent implements OnInit {
       this.isSubmitting = true;
 
       const formValues = this.registerForm.value;
-      const { email, password, displayName, biography } = formValues; // destructure the form input values
+      const { email, password, displayName, biography } = formValues;
 
       this.accountService.registerWithEmailAndPassword(email, password, displayName, biography);
     }
   }
 
-  // registerWithGoogle() {
-  //   this.accountService.registerWithGoogle();
-  // }
+  registerWithGoogle() {
+    this.accountService.logInWithGoogle();
+  }
 
 }

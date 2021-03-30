@@ -64,6 +64,24 @@ export class AccountService {
         this.snackBar.open('Login successful', '', { duration: 3000 });
         this.router.navigateByUrl('/account/collection');
         console.log('Successfully logged in with Google as: ' + res.user.email);
+
+        // also check if this is a new user
+        const docRef = firebase.firestore()
+          .collection(this.playerCollectionName)
+          .doc(firebase.auth().currentUser.uid)
+            docRef.get()
+              .then(user => {
+                  if (user.exists) {
+                    return user;
+                  } else {
+                  //user doesn't exist - create a new user in firestore
+                    resolve(this.createNewPlayerInFirestore());
+                  }
+              })
+            .catch(error => {
+                console.error('Check for existing customer failed" ' + error);
+            });
+
       }, err => {
         console.log(err);
         reject(err);
@@ -88,8 +106,7 @@ export class AccountService {
   registerWithEmailAndPassword(email: string, password: string, displayName: string, biography: string)  {
     this.fireAuth.createUserWithEmailAndPassword(email, password)
       .then(() => {
-
-        firebase.firestore()
+        this.fireStore
           .collection(this.playerCollectionName)
           .doc(firebase.auth().currentUser.uid)
           .set({
@@ -103,19 +120,38 @@ export class AccountService {
             ampsOwned: []
           })
           .catch(error => {
-            console.log('Something went wrong with adding user to firestore: ', error);
+            console.log('Something went wrong when adding user to firestore: ', error);
           })
 
           this.snackBar.open('Registration successful', '', { duration: 3000 });
           this.router.navigateByUrl('/account/collection');
       })
       .catch((error) => {
-        console.log('Could not create user in firebase: ', error.message);
+        console.log('Could not create user in firebase authentication: ', error.message);
       });
   }
 
-  registerWithGoogle() {
-    throw new Error('Method not implemented.');
+  createNewPlayerInFirestore() {
+    const user = firebase.auth().currentUser;
+
+    const userDetails = {
+      uid: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+      biography: '',
+      profileImagePath: user.photoURL,
+      dateCreated: firebase.firestore.Timestamp.fromDate(new Date()),
+      guitarsOwned: [],
+      ampsOwned: []
+    };
+
+    this.fireStore
+        .collection(this.playerCollectionName)
+        .doc(firebase.auth().currentUser.uid)
+        .set(userDetails)
+      .catch(error => {
+          console.log('Something went wrong when adding user to firestore: ', error);
+    })
   }
 
   private generateRandomProfileImage() {

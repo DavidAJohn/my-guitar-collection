@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AccountService } from '../account.service';
 import { User } from 'firebase';
-import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +14,7 @@ export class LoginComponent implements OnInit {
   hidePassword: boolean;
   loggedInUser$: Observable<User>;
 
-  constructor(private accountService: AccountService,
-              private router: Router) {
+  constructor(private accountService: AccountService) {
     this.loggedInUser$ = this.accountService.playerData$;
   }
 
@@ -39,16 +36,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const formValues = this.loginForm.value;
-    const { email, password } = formValues; // destructure the form object values
+    const { email, password } = formValues;
 
-    this.logInWithEmailAndPassword(email, password);
-  }
-
-  logInWithEmailAndPassword(email: string, password: string) {
     this.accountService.logInWithEmailAndPassword(email, password);
   }
 
-  // logInWithGoogle() {
-  //   this.accountService.logInWithGoogle();
-  // }
+  logInWithGoogle() {
+    this.accountService.logInWithGoogle();
+  }
 }
