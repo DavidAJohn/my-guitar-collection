@@ -2,7 +2,7 @@ import { AccountService } from './../account.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
-import { MustMatch } from '../../shared/helpers/must-match.validator';
+import { mustMatchValidator } from '../../shared/helpers/must-match.validator';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   get rf() { return this.registerForm.controls; }
 
   createRegisterForm() {
-    this.registerForm = this.formBuilder.group({
+    this.registerForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required,
                 // Password with the following requirements:
@@ -38,9 +38,7 @@ export class RegisterComponent implements OnInit {
       displayName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       biography: new FormControl('', [Validators.maxLength(150)]),
       profileImagePath: new FormControl({value: 'Your profile image will be set automatically', disabled: true})
-    }, {
-      validator: MustMatch('password', 'confirmPassword') // custom validator from 'shared/helpers/must-match.validator'
-    });
+    }, { validators: mustMatchValidator });
 
     this.hidePassword = true;
     this.hideConfirmPassword = true;
