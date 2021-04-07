@@ -59,6 +59,12 @@
             <div class="image-file-type-error" *ngIf="anf.imagePath.invalid && imagePreview !== '' && fileUploadTouched == true">
                 Only .png and .jpg files can be uploaded (max size: {{maxFileUploadSize}})
             </div>
+            <mat-progress-bar 
+                *ngIf="isSubmitting" 
+                [value]="uploadProgress$ | async" 
+                mode="determinate"
+            >
+            </mat-progress-bar>
         </div>
         <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && anf.imagePath.valid">
             <img [src]="sanitizer.bypassSecurityTrustUrl(imagePreview)" [alt]="anf.title">

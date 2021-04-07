@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { AccountRoutingModule } from './account-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +14,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -36,6 +37,7 @@ import { AddNewGuitarComponent } from './add-new-guitar/add-new-guitar.component
     MatProgressSpinnerModule,
     MatCardModule,
     MatRadioModule,
+    MatProgressBarModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,

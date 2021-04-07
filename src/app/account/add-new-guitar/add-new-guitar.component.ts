@@ -1,9 +1,20 @@
+import { AccountService } from 'src/app/account/account.service';
+import { Observable, Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mimeType as mimeTypeValidator } from '../../shared/helpers/mime-type.validator';
 import { fileSize as fileSizeValidator } from '../../shared/helpers/file-size.validator';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
+import { catchError, takeUntil } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/storage';
+import { User } from 'firebase/app';
+import { StorageService } from '../storage.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-guitar',
@@ -16,13 +27,36 @@ export class AddNewGuitarComponent implements OnInit {
   isSubmitting = false;
   fileUploadTouched = false;
   maxFileUploadSize: string;
+  downloadURL: string;
+  uploadProgress$: Observable<number>;
+  destroy$: Subject<null> = new Subject();
+  currentFirebasePlayer$: Observable<firebase.User | null>;
+  currentUserId: string;
 
-  constructor(private formBuilder: FormBuilder, public sanitizer: DomSanitizer) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    public sanitizer: DomSanitizer, 
+    private firestore: AngularFirestore,
+    private accountService: AccountService,
+    private storageService: StorageService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     const fileSizeLimit = environment.maxFileUploadSize || 5000000;
     this.maxFileUploadSize = this.formatBytes(fileSizeLimit, 0);
     this.createAddNewForm();
+    this.getCurrentFirebasePlayer();
+  }
+
+  getCurrentFirebasePlayer() {
+    this.currentFirebasePlayer$ = this.accountService.playerData$;
+
+    this.currentFirebasePlayer$
+      .subscribe((user: User) => {
+        this.currentUserId = user.uid;
+      });
   }
 
   // getter to simplify the template validation code
@@ -46,9 +80,57 @@ export class AddNewGuitarComponent implements OnInit {
 
       const formValues = this.addNewForm.value;
       const { manufacturer, modelName, description, itemStatus, yearMade, imagePath, numStrings } = formValues;
-      console.log(formValues);
-      this.isSubmitting = false;
-    }
+
+      // first, upload the image
+      const path = 'images/'; // folder in the Firebase Storage bucket
+
+      const { downloadUrl$, uploadProgress$ } = this.storageService.uploadFileAndGetMetadata(
+        path,
+        imagePath,
+      );
+  
+      this.uploadProgress$ = uploadProgress$;
+
+      downloadUrl$
+        .pipe(
+          takeUntil(this.destroy$),
+          catchError((error) => {
+            console.log(error);
+            this.snackBar.open('Sorry, there was a problem uploading the image', 'Dismiss', { duration: 5000 });
+            return null;
+          }),
+        )
+        .subscribe((downloadUrl: string) => {
+          this.isSubmitting = false;
+          this.downloadURL = downloadUrl;
+
+          // save the new guitar to the 'guitars' collection in Firestore 
+          // (including the new image url in Firebase Storage)
+          const newGuitar = {
+            manufacturer, 
+            modelName, 
+            description,
+            ownerId: this.currentUserId,
+            itemStatus, 
+            yearMade, 
+            imagePath: this.downloadURL, 
+            numStrings,
+            createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+          };
+
+          this.firestore
+            .collection('guitars')
+            .add(newGuitar)
+          .catch(error => {
+              console.log('Something went wrong when adding the guitar to firestore: ', error);
+              this.snackBar.open('Sorry, there was a problem saving this guitar', 'Dismiss', { duration: 5000 });
+              this.isSubmitting = false;
+          })
+
+          this.snackBar.open('Guitar added successfully!', 'Go to My Collection', { duration: 5000 });
+          this.router.navigateByUrl('/account/collection');
+        });
+    };
   }
 
   onImageSelected(event: Event) {
