@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Guitar } from '../shared/models/guitar';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  recentGuitars$: Observable<Guitar[]>;
+  
+  constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
+    this.loadRecentGuitars();
   }
 
+  loadRecentGuitars() {
+    this.recentGuitars$ = this.homeService.loadRecentGuitars();
+  }
 }

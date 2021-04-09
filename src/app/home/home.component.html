@@ -49,29 +49,30 @@
         </mat-card-actions>
     </mat-card>
 
-    <mat-card class="card mat-elevation-z5">
-        <mat-card-header>
-          <div mat-card-avatar class="header-image" style="background-image: url('https://randomuser.me/api/portraits/thumb/men/21.jpg')"></div>
-          <mat-card-title>Fender Stratocaster</mat-card-title>
-          <mat-card-subtitle>Dravid Krilmour</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src="../assets/images/fender-stratocaster-dravid-krilmour-signature.jpg" alt="Photo of a Fender Stratocaster">
-        <mat-card-content>
-          <p>
-            Dravid's famous "black strat" which fetched a staggering $3,950,000 for charity when it was sold at auction by Christies in 2019. 
-            Played on famous albums "Dark Slide of the Balloon" and "The Crawl".
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-            <div class="card-actions">
-                <button mat-mini-fab color="primary">
-                    <mat-icon>favorite</mat-icon>
-                </button>
-                <button mat-mini-fab color="warn">
-                    <mat-icon>share</mat-icon>
-                </button>
-            </div>
-        </mat-card-actions>
+       
+    <mat-card class="card mat-elevation-z5" *ngFor="let guitar of (recentGuitars$ | async)">
+      <mat-card-header>
+        <div mat-card-avatar class="header-image" style="background-image: url('https://randomuser.me/api/portraits/thumb/men/21.jpg')"></div>
+        <mat-card-title>{{guitar.manufacturer}} {{guitar.modelName}}</mat-card-title>
+        <mat-card-subtitle>David John</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{guitar.imagePath}}" alt="Photo of a {{guitar.manufacturer}} {{guitar.modelName}}">
+      <mat-card-content>
+        <p>
+          {{guitar.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+          <div class="card-actions">
+              <button mat-mini-fab color="primary">
+                  <mat-icon>favorite</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn">
+                  <mat-icon>share</mat-icon>
+              </button>
+          </div>
+      </mat-card-actions>
     </mat-card>
+
   </div>
 </div>
