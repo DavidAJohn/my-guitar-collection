@@ -34,7 +34,9 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "@angular/fire/firestore",
-              "@firebase/auth"
+              "@firebase/auth",
+              "@firebase/app",
+              "@firebase/component"
            ]
           },
           "configurations": {
