@@ -11,11 +11,11 @@ export class HomeService {
 
   constructor(private firestore: AngularFirestore) { }
 
-  loadRecentGuitars(): Observable<Guitar[]> {
+  loadRecentGuitars(items: number = 4): Observable<Guitar[]> {
     return this.firestore.collection<Guitar>("guitars", ref => ref
       .where("itemStatus", "==", "1")
       .orderBy("createdAt", "desc")
-      .limit(3))
+      .limit(items))
         .snapshotChanges().pipe(
           map(actions => actions.map(a => {
             const data = a.payload.doc.data() as Guitar;
