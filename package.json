@@ -24,6 +24,7 @@
     "@angular/router": "~11.2.3",
     "firebase": "^8.4.1",
     "moment": "^2.27.0",
+    "rxfire": "^4.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
     "uuid": "^8.3.0",
