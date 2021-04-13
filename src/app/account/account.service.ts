@@ -4,17 +4,17 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { User } from 'firebase/app';
 import { first } from 'rxjs/operators';
-import * as firebase from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { Player } from '../shared/models/player';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  playerData$: Observable<User>;
+  playerData$: Observable<firebase.User>;
   currentLocalPlayer$: Observable<Player>;
   playerCollectionName = environment.playerCollectionName;
 

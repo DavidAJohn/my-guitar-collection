@@ -11,7 +11,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
-import { User } from 'firebase/app';
 import { StorageService } from '../storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -54,7 +53,7 @@ export class AddNewGuitarComponent implements OnInit {
     this.currentFirebasePlayer$ = this.accountService.playerData$;
 
     this.currentFirebasePlayer$
-      .subscribe((user: User) => {
+      .subscribe((user: firebase.User) => {
         this.currentUserId = user.uid;
       });
   }

@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Player } from 'src/app/shared/models/player';
-import { User } from 'firebase';
 import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -33,7 +34,7 @@ export class NavbarComponent implements OnInit {
   getCurrentPlayer() {
     if (this.currentFirebasePlayer$ !== null) {
       this.accountService.getPlayer().pipe(
-        switchMap((player: User) => {
+        switchMap((player: firebase.User) => {
           return this.accountService.getPlayerDetailsFromFirestore(player.uid);
         })
       ).subscribe(data => {

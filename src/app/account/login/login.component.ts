@@ -2,7 +2,8 @@ import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AccountService } from '../account.service';
-import { User } from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { User } from 'firebase';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hidePassword: boolean;
-  loggedInUser$: Observable<User>;
+  loggedInUser$: Observable<firebase.User>;
 
   constructor(private accountService: AccountService) {
     this.loggedInUser$ = this.accountService.playerData$;

@@ -2,7 +2,8 @@ import { CardActionType } from './../../shared/components/guitar-card/guitar-car
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../account.service';
-import { User } from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Component({
   selector: 'app-collection',
@@ -10,7 +11,7 @@ import { User } from 'firebase';
   styleUrls: ['./collection.component.scss']
 })
 export class CollectionComponent implements OnInit {
-  loggedInUser$: Observable<User>;
+  loggedInUser$: Observable<firebase.User>;
   cardActionType = CardActionType;
 
   constructor(private accountService: AccountService) {
