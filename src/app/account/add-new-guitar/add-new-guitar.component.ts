@@ -11,6 +11,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
+import 'firebase/firestore';
+import { doc } from 'rxfire/firestore';
 import { StorageService } from '../storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -29,8 +31,10 @@ export class AddNewGuitarComponent implements OnInit {
   downloadURL: string;
   uploadProgress$: Observable<number>;
   destroy$: Subject<null> = new Subject();
-  currentFirebasePlayer$: Observable<firebase.User | null>;
+  currentFirebaseAuthPlayer$: Observable<firebase.User | null>;
   currentUserId: string;
+  currentUserDisplayName: string;
+  currentUserProfileImage: string;
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -46,15 +50,24 @@ export class AddNewGuitarComponent implements OnInit {
     const fileSizeLimit = environment.maxFileUploadSize || 5000000;
     this.maxFileUploadSize = this.formatBytes(fileSizeLimit, 0);
     this.createAddNewForm();
-    this.getCurrentFirebasePlayer();
+    this.getCurrentFirebaseAuthPlayer();
   }
 
-  getCurrentFirebasePlayer() {
-    this.currentFirebasePlayer$ = this.accountService.playerData$;
+  getCurrentFirebaseAuthPlayer() {
+    this.currentFirebaseAuthPlayer$ = this.accountService.getPlayer();
 
-    this.currentFirebasePlayer$
+    this.currentFirebaseAuthPlayer$
       .subscribe((user: firebase.User) => {
-        this.currentUserId = user.uid;
+        const userId = user.uid;
+        const playerDocRef = firebase.firestore().doc(`players/${userId}`);
+
+        doc(playerDocRef).subscribe(snapshot => {
+          this.currentUserId = snapshot.id;
+
+          const data = snapshot.data();
+          this.currentUserDisplayName = data.displayName;
+          this.currentUserProfileImage = data.profileImagePath;
+        });
       });
   }
 
@@ -110,6 +123,8 @@ export class AddNewGuitarComponent implements OnInit {
             modelName, 
             description,
             ownerId: this.currentUserId,
+            ownerName: this.currentUserDisplayName,
+            ownerImagePath: this.currentUserProfileImage,
             itemStatus, 
             yearMade, 
             imagePath: this.downloadURL, 
