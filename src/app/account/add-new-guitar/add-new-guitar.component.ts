@@ -13,7 +13,7 @@ import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/firestore';
 import { doc } from 'rxfire/firestore';
-import { StorageService } from '../storage.service';
+import { StorageService } from '../../shared/services/storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
