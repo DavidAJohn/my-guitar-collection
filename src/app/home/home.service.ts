@@ -1,3 +1,4 @@
+import { GuitarsService } from './../shared/services/guitars.service';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
@@ -9,20 +10,6 @@ import { map } from 'rxjs/operators';
 })
 export class HomeService {
 
-  constructor(private firestore: AngularFirestore) { }
-
-  loadRecentGuitars(items: number = 4): Observable<Guitar[]> {
-    return this.firestore.collection<Guitar>("guitars", ref => ref
-      .where("itemStatus", "==", "1")
-      .orderBy("createdAt", "desc")
-      .limit(items))
-        .snapshotChanges().pipe(
-          map(actions => actions.map(a => {
-            const data = a.payload.doc.data() as Guitar;
-            return data;
-          })
-        )
-      )
-  }
+  constructor() { }
 
 }
