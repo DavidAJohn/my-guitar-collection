@@ -13,16 +13,34 @@ export class GuitarCardListComponent implements OnInit {
   @Input() items: number;
   @Input() orderByField: string;
   @Input() orderDirection: "desc" | "asc";
-  @Input() includePrivate: boolean;
+  @Input() includePrivate: boolean = false;
+  @Input() ownerId: string = "";
 
   constructor(private guitarService: GuitarsService) { }
 
   ngOnInit(): void {
+    if (this.ownerId != "") {
+      this.loadGuitarsForPlayer();
+    } else {
+      this.loadAllGuitars();
+    }
+  }
+
+  private loadAllGuitars() {
     this.guitars$ = this.guitarService.loadGuitars(
-      this.items, 
+      this.items,
       this.orderByField,
       this.orderDirection,
       this.includePrivate
+    );
+  }
+
+  private loadGuitarsForPlayer() {
+    this.guitars$ = this.guitarService.loadGuitarsForPlayerCollection(
+      this.items,
+      this.orderByField,
+      this.orderDirection,
+      this.ownerId
     );
   }
 

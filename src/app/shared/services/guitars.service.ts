@@ -22,9 +22,30 @@ export class GuitarsService {
     if (includePrivate == true) {
       arrPrivatePublic.push("0");
     }
-    
+
     return this.firestore.collection<Guitar>("guitars", ref => ref
       .where("itemStatus", "in", arrPrivatePublic)
+      .orderBy(orderByField, orderDirection)
+      .limit(items))
+        .snapshotChanges().pipe(
+          map(actions => actions.map(a => {
+            const data = a.payload.doc.data() as Guitar;
+            return data;
+          })
+        )
+      )
+  }
+
+  loadGuitarsForPlayerCollection(
+    items: number = 10, 
+    orderByField: string = "createdAt",
+    orderDirection: "desc" | "asc" = "desc",
+    ownerId: string
+  ): Observable<Guitar[]> {
+
+    return this.firestore.collection<Guitar>("guitars", ref => ref
+      .where("ownerId", "==", ownerId)  
+      .where("itemStatus", "in", ["0", "1"])
       .orderBy(orderByField, orderDirection)
       .limit(items))
         .snapshotChanges().pipe(
