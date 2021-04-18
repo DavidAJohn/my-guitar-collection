@@ -1,8 +1,23 @@
+.content {
+    margin: auto;
+    width: 60%;
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
 .card {
-    max-width: 300px;
+    max-width: 225px;
     min-width: 150px;
-    height: 500px;
-    margin-bottom: 40px;
+    height: 400px;
+    margin-bottom: 30px;
+    margin-inline: 10px;
 }
 
 .header-image {
@@ -13,25 +28,27 @@
     position: relative;
 }
 
-.mat-card-content {
-    height: 100px;
+.mat-card-title {
+    max-height: 30px;
     overflow: hidden;
+    font-size: 1rem;
+}
+
+.mat-card-content {
+    height: 80px;
+    max-height: 80px;
+    overflow: hidden;
+
+    p {
+        font-size: 0.8rem;
+    }
 }
 
 .mat-card-image {
-    height: 250px;
-    max-height: 250px;
+    height: 180px;
+    max-height: 180px;
     overflow: hidden;
-    position: relative;
-
-    &.new-guitar {
-        opacity: 0.5;
-
-        &:hover {
-            opacity: 0.7; 
-            cursor: pointer;
-        }
-    }
+    margin-bottom: 0.5rem;
 }
 
 .card-actions {
@@ -42,18 +59,4 @@
     button {
         margin-right: 10px;
     }
-}
-
-.content {
-    margin: auto;
-    width: 60%;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
 }
