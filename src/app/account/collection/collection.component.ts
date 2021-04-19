@@ -16,13 +16,14 @@ export class CollectionComponent implements OnInit {
   currentFirebaseAuthPlayer$: Observable<firebase.User | null>;
   ownerId: string = "";
   guitars$: Observable<Guitar[] | null>;
-  cardActionType = CardActionType;
+  cardActionType: CardActionType;
 
   constructor(private accountService: AccountService, private guitarsService: GuitarsService) {
   }
 
   ngOnInit(): void {
     this.getCurrentFirebaseAuthPlayer();
+    this.cardActionType = CardActionType.Edit;
   }
 
   getCurrentFirebaseAuthPlayer() {
