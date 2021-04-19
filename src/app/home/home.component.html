@@ -1,8 +1,24 @@
 <div class="content">
-    <app-guitar-card-list 
-        items=3
-        orderByField="createdAt"
-        orderDirection="desc"
-        includePrivate=false
-    ></app-guitar-card-list>
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Latest Additions">
+            <div class="card-container">
+                <app-guitar-card-list 
+                    items=3
+                    orderByField="createdAt"
+                    orderDirection="desc"
+                    includePrivate=false
+                ></app-guitar-card-list>
+            </div>
+        </mat-tab>
+        <mat-tab label="Most Popular">
+            <div class="card-container">
+                <app-guitar-card-list 
+                    items=3
+                    orderByField="likes"
+                    orderDirection="desc"
+                    includePrivate=false
+                ></app-guitar-card-list>
+            </div>
+        </mat-tab>
+        </mat-tab-group>
 </div>

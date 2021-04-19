@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 import { SharedModule } from '../shared/shared.module';
 
 
@@ -14,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
     MatIconModule,
     MatCardModule,
     MatButtonModule,
+    MatTabsModule,
     SharedModule
   ]
 })
