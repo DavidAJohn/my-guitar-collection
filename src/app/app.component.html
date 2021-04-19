@@ -1,6 +1,8 @@
-<app-navbar></app-navbar>
-<app-header></app-header>
-
-<div>
-  <router-outlet></router-outlet>
+<div fxLayout="column">
+  <app-navbar></app-navbar>
+  <app-header></app-header>
+  <div fxFlex>
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
 </div>

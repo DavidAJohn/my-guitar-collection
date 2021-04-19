@@ -11,10 +11,11 @@ import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { HeaderComponent } from './header/header.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
-  declarations: [NavbarComponent, HeaderComponent],
+  declarations: [NavbarComponent, HeaderComponent, FooterComponent],
   imports: [
     CommonModule,
     LayoutModule,
@@ -29,7 +30,8 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
   ],
   exports: [
     NavbarComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ]
 })
 export class CoreModule { }
