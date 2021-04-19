@@ -1,5 +1,5 @@
 import { GuitarsService } from './../../shared/services/guitars.service';
-import { CardActionType } from './../../shared/components/guitar-card/guitar-card.component';
+import { CardActionType } from './../../shared/models/cardActionType';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../account.service';

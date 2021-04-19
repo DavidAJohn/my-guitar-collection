@@ -1,11 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-export enum CardActionType {
-  None = 0,
-  Share = 1,
-  Edit,
-  Likes
-}
+import { CardActionType } from '../../models/cardActionType'
 
 @Component({
   selector: 'app-guitar-card',
@@ -13,7 +7,8 @@ export enum CardActionType {
   styleUrls: ['./guitar-card.component.scss']
 })
 export class GuitarCardComponent implements OnInit {
-  @Input() cardActionType: CardActionType = CardActionType.Share;
+  @Input() cardActionType: CardActionType = CardActionType.None;
+  @Input() likes: number = 0;
   cardActionTypesEnum = CardActionType;
 
   constructor() { }

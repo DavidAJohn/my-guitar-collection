@@ -1,5 +1,5 @@
-<mat-card-actions *ngIf="cardActionType !== cardActionTypesEnum.None">
-    <ng-container *ngIf="cardActionType === cardActionTypesEnum.Share">
+<mat-card-actions *ngIf="cardActionType != cardActionTypesEnum.None">
+    <ng-container *ngIf="cardActionType == cardActionTypesEnum.Share">
         <div class="card-actions">
             <button mat-mini-fab color="primary">
                 <mat-icon>favorite</mat-icon>
@@ -9,9 +9,17 @@
             </button>
         </div>
     </ng-container>
-    <ng-container *ngIf="cardActionType === cardActionTypesEnum.Edit">
+    <ng-container *ngIf="cardActionType == cardActionTypesEnum.Edit">
         <div class="card-actions">
             <button mat-raised-button color="warn">Edit</button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="cardActionType == cardActionTypesEnum.Likes">
+        <div class="card-actions">
+            <button mat-mini-fab color="warn">
+                <mat-icon>favorite</mat-icon>
+            </button>
+            {{likes}}&nbsp;Likes
         </div>
     </ng-container>
 </mat-card-actions>

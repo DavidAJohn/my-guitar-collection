@@ -2,6 +2,7 @@ import { GuitarsService } from './../../services/guitars.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Guitar } from '../../models/guitar';
+import { CardActionType } from '../../models/cardActionType';
 
 @Component({
   selector: 'app-guitar-card-list',
@@ -15,6 +16,7 @@ export class GuitarCardListComponent implements OnInit {
   @Input() orderDirection: "desc" | "asc";
   @Input() includePrivate: boolean = false;
   @Input() ownerId: string = "";
+  @Input() cardActionType: CardActionType = CardActionType.None;
 
   constructor(private guitarService: GuitarsService) { }
 
