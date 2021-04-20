@@ -16,6 +16,12 @@ const routes: Routes = [
     data: {
       breadcrumb: {skip: true}
     }
+  },
+  {path: 'guitars', loadChildren: () => import('./guitars/guitars.module')
+    .then(mod => mod.GuitarsModule),
+    data: {
+      breadcrumb: {skip: true}
+    }
   }
 ];
 

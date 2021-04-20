@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
+import { GuitarsModule } from './guitars/guitars.module';
 
 import { environment } from '../environments/environment';
 
@@ -34,7 +35,8 @@ import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
-    FlexLayoutModule
+    FlexLayoutModule, 
+    GuitarsModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
