@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GuitarCardListComponent } from './components/guitar-card-list/guitar-card-list.component';
@@ -12,7 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    RouterModule
   ],
   exports: [
     GuitarCardListComponent,

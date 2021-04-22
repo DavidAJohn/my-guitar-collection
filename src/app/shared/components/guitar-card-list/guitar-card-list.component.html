@@ -5,7 +5,9 @@
       <mat-card-title>{{guitar.manufacturer}} {{guitar.modelName}}</mat-card-title>
       <mat-card-subtitle>{{guitar.ownerName || 'Unknown Player'}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="{{guitar.imagePath}}" alt="Photo of a {{guitar.manufacturer}} {{guitar.modelName}}">
+    <a [routerLink]="['/guitars/details']" [queryParams]="{id: guitar.id}" >
+      <img mat-card-image src="{{guitar.imagePath}}" alt="Photo of a {{guitar.manufacturer}} {{guitar.modelName}}">
+    </a>
     <mat-card-content>
       <p>
         {{guitar.description}}

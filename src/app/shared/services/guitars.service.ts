@@ -30,6 +30,10 @@ export class GuitarsService {
         .snapshotChanges().pipe(
           map(actions => actions.map(a => {
             const data = a.payload.doc.data() as Guitar;
+
+            const id = a.payload.doc.id; // also add the id to the Guitar object
+            data.id = id;
+
             return data;
           })
         )
@@ -51,10 +55,19 @@ export class GuitarsService {
         .snapshotChanges().pipe(
           map(actions => actions.map(a => {
             const data = a.payload.doc.data() as Guitar;
+
+            const id = a.payload.doc.id; // also add the id to the Guitar object
+            data.id = id;
+            
             return data;
           })
         )
       )
+  }
+
+  loadGuitarById(id: string): Observable<Guitar> {
+    return this.firestore.collection<Guitar>("guitars")
+      .doc(id).valueChanges({idField: id});
   }
 
 }

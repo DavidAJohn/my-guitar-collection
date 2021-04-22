@@ -4,21 +4,27 @@ export class Guitar extends BaseItem {
     yearMade: string;
     imagePath: string;
     numStrings: number;
+    ownerName: string;
+    likes: number;
 
     constructor(
                 manufacturer: string,
                 modelName: string,
                 description: string,
                 ownerId: string,
+                ownerName: string,
                 itemStatus: ItemStatus,
                 yearMade: string,
                 imagePath: string,
-                numStrings: number
+                numStrings: number,
+                likes: number
                 ) {
         super(manufacturer, modelName, description, ownerId, itemStatus);
         this.yearMade = yearMade;
         this.imagePath = imagePath;
         this.numStrings = numStrings;
+        this.ownerName = ownerName;
+        this.likes = likes;
     }
 }
 

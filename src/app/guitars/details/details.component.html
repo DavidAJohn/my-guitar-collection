@@ -1,24 +1,26 @@
-<div class="container" fxLayout>
+<div class="container" fxLayout *ngIf="guitar">
     <div class="row">
         <div class="col">
             <div class="guitar-gallery">
                 <div class="main-image">
-                    <img src="../../../assets/images/gibson_lespaul_1957.jpg" alt="">
+                    <img src={{guitar.imagePath}} alt="">
                 </div>
             </div>
         </div>
             <div class="col">
                 <div class="guitar-details">
-                    <h3><strong>1957 Gibson Les Paul</strong></h3>
-                    <p>Owned by Bo Jonabassa</p>
+                    <h3><strong>{{guitar.manufacturer}} {{guitar.modelName}}</strong></h3>
+                    <p>Owned by {{guitar.ownerName}}</p>
                     <p>
-                        Made in 1957 in Gibson's factory in Kalamazoo, Michigan, 
-                        this is one of the finest guitars in Bo's huge collection of vintage gear.
+                        <button mat-mini-fab color="accent" 
+                            matTooltip="You liked this guitar"
+                        >
+                            <mat-icon>favorite</mat-icon>
+                        </button>
+                        &nbsp;<strong>{{guitar.likes}}</strong>&nbsp;Likes
                     </p>
                     <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                        Modi neque ea corrupti alias fugit eveniet quaerat tenetur, similique 
-                        aliquid minus nobis quod blanditiis, dolor nemo.
+                        {{guitar.description}}
                     </p>
                     <p>
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. 

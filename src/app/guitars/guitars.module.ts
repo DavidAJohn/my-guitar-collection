@@ -5,6 +5,9 @@ import { GuitarsComponent } from './guitars.component';
 import { DetailsComponent } from './details/details.component';
 import { GuitarsRoutingModule } from './guitars-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [GuitarsComponent, DetailsComponent],
@@ -12,7 +15,10 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     SharedModule,
     GuitarsRoutingModule,
-    RouterModule
+    RouterModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule
   ]
 })
 export class GuitarsModule { }
