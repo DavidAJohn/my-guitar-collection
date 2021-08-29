@@ -7,29 +7,35 @@
                 </div>
             </div>
         </div>
-            <div class="col">
-                <div class="guitar-details">
-                    <h3><strong>{{guitar.manufacturer}} {{guitar.modelName}}</strong></h3>
-                    <p>Owned by {{guitar.ownerName}}</p>
-                    <p>
-                        <button mat-mini-fab color="accent" 
-                            matTooltip="You liked this guitar"
-                        >
-                            <mat-icon>favorite</mat-icon>
-                        </button>
-                        &nbsp;<strong>{{guitar.likes}}</strong>&nbsp;Likes
-                    </p>
-                    <p>
-                        {{guitar.description}}
-                    </p>
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                        Modi neque ea corrupti alias fugit eveniet quaerat tenetur, similique 
-                        aliquid minus nobis quod blanditiis, dolor nemo.
-                    </p>
-                </div>
+        <div class="col">
+            <div class="guitar-details">
+                <h3><strong>{{guitar.manufacturer}} {{guitar.modelName}}</strong></h3>
+                <p>Owned by {{guitar.ownerName}}</p>
+                <p>
+                    {{guitar.description}}
+                </p>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                    Modi neque ea corrupti alias fugit eveniet quaerat tenetur, similique 
+                    aliquid minus nobis quod blanditiis, dolor nemo.
+                </p>
             </div>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <p>
+                <button mat-mini-fab color="accent" 
+                    matTooltip="You liked this guitar"
+                >
+                    <mat-icon>favorite</mat-icon>
+                </button>
+                &nbsp;<strong>{{guitar.likes}}</strong>&nbsp;Likes
+            </p>
+        </div>
+    </div>
+    
     <div class="row">
         <div class="col">
             <h3>Comments (0)</h3>
